@@ -37,6 +37,7 @@
                 <version>0.0.3</version>
                 <configuration>
                     <mainClass>bullsandcows.App</mainClass>
+                    <launcher> start </launcher>
                 </configuration>
             </plugin>
         </plugins>
