@@ -20,7 +20,7 @@
          <Spinner fx:id="num2" initialValue="5" min="0" max="9" prefWidth="75" maxWidth="Infinity" minWidth="60" HBox.hgrow="ALWAYS"/>
          <Spinner fx:id="num3" initialValue="5" min="0" max="9" prefWidth="75" maxWidth="Infinity" minWidth="60" HBox.hgrow="ALWAYS"/>
          <Spinner fx:id="num4" initialValue="5" min="0" max="9" prefWidth="75" maxWidth="Infinity" minWidth="60" HBox.hgrow="ALWAYS"/>
-         <Button onAction="#doTurn" text = "GO" prefWidth="80" minWidth="60"/>
+         <Button fx:id="goButton" onAction="#doTurn" text = "GO" prefWidth="80" minWidth="60"/>
       </HBox>
    </top>
 
