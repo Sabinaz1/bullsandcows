@@ -17,7 +17,7 @@ public class PrimaryController {
     public Spinner<Integer> num2;
     public Spinner<Integer> num3;
     public Spinner<Integer> num4;
-    public TableView turns;
+    public TableView <Turn> turns;
     public Button goButton;
     private List<Integer> myNumbers;
     Random rand = new Random();
@@ -32,6 +32,7 @@ public class PrimaryController {
                       num4.valueProperty())
       );
     }
+
     private void generateRandomNumber() {
 
         var rand = new Random();
@@ -62,7 +63,39 @@ public class PrimaryController {
         App.setRoot("secondary");
     }
 
-    public void doTurn(ActionEvent actionEvent) {
+    private int calculateBulls(List<Integer> userNumbers) {
+
+        int result = 0;
+
+        for (int i = 0; i < myNumbers.size(); i++) {
+            int myNum = myNumbers.get(i);
+            int userNum = userNumbers.get(i);
+            if (myNum == userNum) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    private int calculateCows(List<Integer> userNumbers) {
+        int result = 0;
+        for (int ui = 0; ui < myNumbers.size(); ui++) {
+            for (int mi = 0; mi < myNumbers.size(); mi++) {
+                if (ui == mi) {
+                    continue;
+                }
+                int myNum = myNumbers.get(mi);
+                int userNum = userNumbers.get(ui);
+                if(myNum == userNum) {
+                    result++;
+                }
+            }
+
+        }
+        return result;
+    }
+
+    public void doTurn(ActionEvent actionEvent) throws IOException {
         turnCounter++;
         int n1 = num1.getValue();
         int n2 = num2.getValue();
@@ -70,15 +103,26 @@ public class PrimaryController {
         int n4 = num4.getValue();
         String guess = "" + n1 + n2 +n3 + n4;
 
+        var userNumbers = List.of(n1,n2,n3,n4);
+        var cows = calculateCows(userNumbers);
+        var bulls = calculateBulls(userNumbers);
+
 
         Turn turn = new Turn();
         turn.setGuess(guess);
         turn.setTurnNr(turnCounter);
+        turn.setCows(cows);
+        turn.setBulls(bulls);
 
 
         turns.getItems().add(turn);
 
         turns.sort();
         System.out.println("Button pressed! " + guess);
+
+        if(bulls == 4) {
+            App.setRoot("secondary");
+        }
+
     }
 }
